@@ -5,11 +5,12 @@
   "main": "app.js",
   "dependencies": {
     "express": "^4.9.8",
-    "raspicam": "^0.2.13"
+    "raspicam": "^0.2.13",
+    "jasmine-node": "^1.14.5"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine-node test/"
   },
   "repository": {
     "type": "git",
