@@ -11,5 +11,5 @@ http.listen(8888, function() {
 require('./app/camera').run();
 
 app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/images/camera.jpg');
+  res.sendFile(__dirname + '/views/index.html');
 });
