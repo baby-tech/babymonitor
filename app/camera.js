@@ -2,16 +2,13 @@ module.exports = {
   run: function () {
     var cameraOptions = {
       width: 600,
-      height: 338,
-      mode: "timelapse",
-      awb: 'cloud',
+      mode: 'timelapse',
       output: 'images/camera.jpg',
-      q: 50,
-      rot: 270,
+      quality: 50,
+      rotation: 180,
       nopreview: true,
       timeout: 1000,
-      timelapse: 9999,
-      th: "0:0:0"
+      timelapse: 4500
     };
 
     var camera = new require("raspicam")(cameraOptions);
