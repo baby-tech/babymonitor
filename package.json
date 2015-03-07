@@ -1,11 +1,24 @@
 {
-  "name": "RaspbianCamera",
+  "name": "babymonitor",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Raspberry Pi based baby monitor",
   "main": "app.js",
-  "author": "Author-name",
   "dependencies": {
-    "raspicam": "^0.2.13",
-    "express": "~4.9.5"
-  }
+    "express": "^4.9.8",
+    "raspicam": "^0.2.13"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/baby-tech/babymonitor.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/baby-tech/babymonitor/issues"
+  },
+  "homepage": "https://github.com/baby-tech/babymonitor"
 }
