@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>babymonitor</title>
-    <meta http-equiv="refresh" content="5">
-  </head>
-  <body>
-    <img src="/camera.jpg" alt="camera" />
-  </body>
+<html lang="en">
+<head>
+  <title>babymonitor</title>
+ 
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+  var socket = io();
+  socket.on('liveStream', function(url) {
+    $('#stream').attr('src', url);
+    $('.start').hide();
+  });
+ 
+  function startStream() {
+    socket.emit('start-stream');
+    $('.start').hide();
+  }
+
+  $(document).ready(startStream);
+  </script>
+</head>
+ 
+<body>
+  <img src="" id="stream" />
+</body>
+ 
 </html>
+
