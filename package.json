@@ -1,0 +1,11 @@
+{
+  "name": "RaspbianCamera",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "author": "Author-name",
+  "dependencies": {
+    "raspicam": "^0.2.13",
+    "express": "~4.9.5"
+  }
+}
