@@ -11,6 +11,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "start": "node app.js",
     "test": "./node_modules/jasmine-node/bin/jasmine-node test/"
   },
   "repository": {
