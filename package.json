@@ -9,7 +9,9 @@
     "raspicam": "^0.2.13",
     "socket.io": "^1.3.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "imagemagick": "^0.1.3"
+  },
   "scripts": {
     "start": "node app.js",
     "test": "./node_modules/jasmine-node/bin/jasmine-node test/"
