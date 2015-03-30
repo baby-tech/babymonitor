@@ -1,15 +1,18 @@
+var constants = require('./constants');
+
 module.exports = {
   run: function () {
     'use strict';
     var cameraOptions = {
-      width: 600,
+      width: constants.WIDTH,
+      height: constants.HEIGHT,
       mode: 'timelapse',
-      output: 'images/camera.jpg',
+      output: constants.IMAGE_PATH,
       quality: 50,
       rotation: 180,
       nopreview: true,
       timeout: 1000,
-      timelapse: 4500
+      timelapse: constants.INTERVAL
     };
 
     var RaspiCam = require('raspicam');

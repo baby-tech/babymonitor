@@ -1,4 +1,5 @@
 node_modules
 images/*.jpg
+stubs/_*.jpg
 .DS_Store
 
