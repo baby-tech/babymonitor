@@ -13,6 +13,7 @@ A tool to allow monitoring of your baby, even at night. Based on a [Raspberry Pi
 Assuming you have a NoIR camera and a Raspbery Pi, ensure that `raspistill` is [installed](http://www.raspberrypi.org/documentation/configuration/camera.md). Once your camera is attached and working, run the following on the pi:
 
     git clone https://github.com/baby-tech/babymonitor.git
+    cd babymonitor
     npm install --production
     npm start
 
