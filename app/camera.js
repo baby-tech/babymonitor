@@ -1,5 +1,6 @@
 module.exports = {
   run: function () {
+    'use strict';
     var cameraOptions = {
       width: 600,
       mode: 'timelapse',
@@ -11,14 +12,15 @@ module.exports = {
       timelapse: 4500
     };
 
-    var camera = new require("raspicam")(cameraOptions);
+    var RaspiCam = require('raspicam');
+    var camera = new RaspiCam(cameraOptions);
     camera.start();
 
-    camera.on("exit", function()
+    camera.on('exit', function()
     {
         camera.stop();
-        console.log('Restarting camera...')
-        camera.start()
+        console.log('Restarting camera...');
+        camera.start();
     });
   }
 };

@@ -1,5 +1,6 @@
 module.exports = {
   run: function () {
+    'use strict';
     var express = require('express');
     var app = express();
     var http = require('http').Server(app);
@@ -7,7 +8,6 @@ module.exports = {
     var fs = require('fs');
     var path = require('path');
 
-    var spawn = require('child_process').spawn;
     var proc;
 
     var imagePath = path.resolve(__dirname + '/../images/camera.jpg');
@@ -26,9 +26,9 @@ module.exports = {
       socket.on('disconnect', function() {
         delete sockets[socket.id];
 
-        if (Object.keys(sockets).length == 0) {
+        if (Object.keys(sockets).length === 0) {
           app.set('watchingFile', false);
-          if (proc) proc.kill();
+          if (proc) { proc.kill(); }
           fs.unwatchFile(imagePath);
         }
       });
@@ -42,14 +42,6 @@ module.exports = {
       console.log('listening on *:8888');
     });
 
-    function stopStreaming() {
-      if (Object.keys(sockets).length == 0) {
-        app.set('watchingFile', false);
-        if (proc) proc.kill();
-        fs.unwatchFile(imagePath);
-      }
-    }
-
     function startStreaming(io) {
       if (app.get('watchingFile')) {
         io.sockets.emit('liveStream', 'camera.jpg?_t=' + (Math.random() * 100000));
@@ -58,9 +50,9 @@ module.exports = {
       console.log('Watching for changes...');
       app.set('watchingFile', true);
 
-      fs.watchFile(imagePath, function(current, previous) {
+      fs.watchFile(imagePath, function() {
         io.sockets.emit('liveStream', 'camera.jpg?_t=' + (Math.random() * 100000));
-      })
+      });
     }
   }
 };

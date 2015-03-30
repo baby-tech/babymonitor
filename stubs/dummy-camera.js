@@ -1,5 +1,6 @@
 module.exports = {
   run: function () {
+    'use strict';
     var im = require('imagemagick');
     var path = require('path');
     var fs = require('fs');
@@ -14,12 +15,12 @@ module.exports = {
         '-fill', 'white',
         '-annotate', '0', new Date(),
         intermediate
-      ], moveImage);
+      ], handleImageCreation);
     }
 
     function handleImageCreation(err) {
-      if (err) throw err;
-      else moveImage();
+      if (err) { throw err; }
+      else { moveImage(); }
     }
 
     function moveImage() {
@@ -27,8 +28,8 @@ module.exports = {
     }
 
     function handleImageMove(err) {
-      if (err) throw err;
-      else setTimeout(createImage, 4500);
+      if (err) { throw err; }
+      else { setTimeout(createImage, 4500); }
     }
 
     createImage();
