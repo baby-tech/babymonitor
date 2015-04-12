@@ -2,7 +2,25 @@
 <html lang="en">
 <head>
   <title>babymonitor</title>
- 
+
+  <style>
+    body {
+      background-color: black;
+    }
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      overflow: auto;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  </style>
+
   <script src="http://code.jquery.com/jquery.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
@@ -11,7 +29,7 @@
     $('#stream').attr('src', url);
     $('.start').hide();
   });
- 
+
   function startStream() {
     socket.emit('start-stream');
     $('.start').hide();
@@ -20,10 +38,10 @@
   $(document).ready(startStream);
   </script>
 </head>
- 
+
 <body>
   <img src="" id="stream" />
 </body>
- 
+
 </html>
 

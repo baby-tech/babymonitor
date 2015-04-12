@@ -1,8 +1,8 @@
 var path = require('path');
 
 module.exports = {
-  WIDTH: 600,
-  HEIGHT: 450,
-  INTERVAL: 4500,
+  WIDTH: 2592,
+  HEIGHT: 1944,
+  INTERVAL: 1950,
   IMAGE_PATH: path.resolve(__dirname + '/../images/camera.jpg')
 };
