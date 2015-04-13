@@ -290,7 +290,7 @@
               "dependencies": {
                 "glob": {
                   "version": "3.2.11",
-                  "from": "https://registry.npmjs.org/glob/-/glob-3.2.11.tgz",
+                  "from": "glob@~ 3.2.1",
                   "resolved": "https://registry.npmjs.org/glob/-/glob-3.2.11.tgz",
                   "dependencies": {
                     "inherits": {
@@ -325,18 +325,6 @@
           "version": "0.3.5",
           "from": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.5.tgz",
           "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.5.tgz"
-        }
-      }
-    },
-    "raspicam": {
-      "version": "0.2.13",
-      "from": "https://registry.npmjs.org/raspicam/-/raspicam-0.2.13.tgz",
-      "resolved": "https://registry.npmjs.org/raspicam/-/raspicam-0.2.13.tgz",
-      "dependencies": {
-        "lodash": {
-          "version": "3.4.0",
-          "from": "https://registry.npmjs.org/lodash/-/lodash-3.4.0.tgz",
-          "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.4.0.tgz"
         }
       }
     },
