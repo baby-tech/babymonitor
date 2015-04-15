@@ -1,0 +1,23 @@
+#! /bin/sh
+# /etc/init.d/baby-monitor
+#
+
+PATH="/opt/baby-monitor/:/usr/local/bin:/usr/bin:${PATH}"
+
+# Carry out specific functions when asked to by the system
+case "$1" in
+  start)
+    echo "Starting baby-monitor"
+    nohup node /opt/baby-monitor/app.js & # Refactor to use forever
+    ;;
+  stop)
+    echo "Stopping baby-monitor"
+    echo "Actually, this hasn't been implemented yet"
+    ;;
+  *)
+    echo "Usage: /etc/init.d/baby-monitor {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0

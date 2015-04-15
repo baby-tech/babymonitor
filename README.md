@@ -28,6 +28,14 @@ To run the tests:
 
 You can do development on or off the pi. Being on the pi allows you to develop every aspect of the babymonitor. Doing development on another machine means you cannot directly interact with the camera module. But fear not! The camera module can be stubbed out. Read on for instructions.
 
+## Building (unfinished)
+
+To build a .deb file, in debinstall:
+
+    ./redeb.sh
+
+This will output a suitable deb in /tmp/baby-monitor-deb-dist/
+
 ### Doing dev away from a Raspberry Pi
 
 Make sure you have [ImageMagick](http://www.imagemagick.org/) installed and run:
