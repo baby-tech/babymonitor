@@ -1,4 +1,11 @@
 #!/bin/bash
-# Start the services!
 
+# Create the needed user. It needs to be 'babymonitor'
+adduser --system babymonitor
+
+# Change all files to be owned by this user
+chown -R babymonitor /opt/baby-monitor
+chown -R root:root /etc/init.d/baby-monitor
+
+# Start the services!
 service baby-monitor start
