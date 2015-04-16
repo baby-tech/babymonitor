@@ -7,5 +7,8 @@ adduser --system babymonitor
 chown -R babymonitor /opt/baby-monitor
 chown -R root:root /etc/init.d/baby-monitor
 
+# Set the appropriate init scripts
+update-rc.d -f baby-monitor defaults
+
 # Start the services!
 service baby-monitor start

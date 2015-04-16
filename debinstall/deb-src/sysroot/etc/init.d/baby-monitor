@@ -1,6 +1,14 @@
-#! /bin/sh
-# /etc/init.d/baby-monitor
-#
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:        baby-monitor
+# Required-Start:  $network $remote_fs $syslog
+# Required-Stop:   $network $remote_fs $syslog
+# Default-Start:   2 3 4 5
+# Default-Stop:    0 1 6
+# Short-Description: Start baby-monitor daemon
+### END INIT INFO
+
 
 PATH="/opt/baby-monitor/:/usr/local/bin:/usr/bin:${PATH}"
 
