@@ -8,16 +8,23 @@ set -e
 SRC=`mktemp -d`
 DIST=`mktemp -d`
 SYSROOT=${SRC}/sysroot
+APPROOT=${SYSROOT}/opt/baby-monitor
 DEBIAN=${SRC}/DEBIAN
 
-rm -rf ${DIST}
-mkdir -p ${DIST}/
 
-rm -rf ${SRC}
-rsync -a deb-src/ ${SRC}/
-mkdir -p ${SYSROOT}/opt/
+cp -r deb-src/* ${SRC}/
+mkdir -p ${APPROOT}
 
-rsync -a ../ ${SYSROOT}/opt/baby-monitor/ --delete
+cp -r ../app ${APPROOT}/
+cp -r ../views ${APPROOT}/
+
+cp ../app.js ${APPROOT}/
+cp ../npm-shrinkwrap.json ${APPROOT}/
+cp ../package.json ${APPROOT}/
+cp ../README.md ${APPROOT}/
+cp ../LICENSE ${APPROOT}/
+
+mkdir ${APPROOT}/images
 
 find ${SRC}/ -type d -exec chmod 0755 {} \;
 find ${SRC}/ -type f -exec chmod go-w {} \;

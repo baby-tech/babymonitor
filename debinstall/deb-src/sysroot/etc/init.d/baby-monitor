@@ -10,19 +10,19 @@
 ### END INIT INFO
 
 
-PATH="/opt/baby-monitor/:/usr/local/bin:/usr/bin:${PATH}"
+PATH="/usr/local/bin:/usr/bin:${PATH}"
 
 # Carry out specific functions when asked to by the system
 case "$1" in
   start)
     echo "Starting baby-monitor"
     cd "/opt/baby-monitor"
-    su baby-monitor -c "npm start"
+    su babymonitor -s /bin/bash -c "npm start"
     ;;
   stop)
     echo "Stopping baby-monitor"
     cd "/opt/baby-monitor"
-    su baby-monitor -c "npm stop"
+    su babymonitor -s /bin/bash -c "npm stop"
     ;;
   *)
     echo "Usage: /etc/init.d/baby-monitor {start|stop}"

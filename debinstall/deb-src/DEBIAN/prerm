@@ -2,3 +2,10 @@
 
 # Stop the appserver:
 service baby-monitor stop || true
+
+#Remove the user
+userdel babymonitor
+
+# Remove installed app dependencies
+rm -rf /opt/baby-monitor/node_modules
+rm -rf /opt/baby-monitor/.forever
