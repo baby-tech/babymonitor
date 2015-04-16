@@ -1,12 +1,12 @@
-#!/usr/bin/env bash
+#!/usr/bin/fakeroot bash
 
 # IMPORTANT
 # Protect agaisnt mispelling a var and rm -rf /
 set -u
 set -e
 
-SRC=/tmp/baby-monitor-deb-src
-DIST=/tmp/baby-monitor-deb-dist
+SRC=`mktemp -d`
+DIST=`mktemp -d`
 SYSROOT=${SRC}/sysroot
 DEBIAN=${SRC}/DEBIAN
 
