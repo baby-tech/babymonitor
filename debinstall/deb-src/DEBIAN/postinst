@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create the needed user. It needs to be 'babymonitor'
-useradd -r -d /opt/baby-monitor -s /bin/false babymonitor
+useradd -r -d /opt/baby-monitor -s /bin/false -G video babymonitor
 
 # Change all files to be owned by this user
 chown -R babymonitor /opt/baby-monitor
