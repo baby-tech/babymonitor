@@ -8,7 +8,7 @@ set -e
 SRC=`mktemp -d`
 DIST=`mktemp -d`
 SYSROOT=${SRC}/sysroot
-APPROOT=${SYSROOT}/opt/baby-monitor
+APPROOT=${SYSROOT}/opt/babymonitor
 DEBIAN=${SRC}/DEBIAN
 
 
