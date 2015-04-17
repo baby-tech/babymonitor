@@ -19,6 +19,14 @@ Assuming you have a NoIR camera and a Raspbery Pi, ensure that `raspistill` is [
 
 Then connect to your pi using a browser on port `8888`. You should see images coming through within minutes.
 
+## Building (unfinished)
+
+To build a .deb file, in debinstall:
+
+    ./redeb.sh
+
+This will output a suitable deb in debinstall.
+
 ## Development
 
 To run the tests:
@@ -27,14 +35,6 @@ To run the tests:
     npm test
 
 You can do development on or off the pi. Being on the pi allows you to develop every aspect of the babymonitor. Doing development on another machine means you cannot directly interact with the camera module. But fear not! The camera module can be stubbed out. Read on for instructions.
-
-## Building (unfinished)
-
-To build a .deb file, in debinstall:
-
-    ./redeb.sh
-
-This will output a suitable deb in /tmp/baby-monitor-deb-dist/
 
 ### Doing dev away from a Raspberry Pi
 

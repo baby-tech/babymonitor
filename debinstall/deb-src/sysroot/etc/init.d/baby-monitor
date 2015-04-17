@@ -1,12 +1,12 @@
 #!/bin/sh
 
 ### BEGIN INIT INFO
-# Provides:        baby-monitor
+# Provides:        babymonitor
 # Required-Start:  $network $remote_fs $syslog
 # Required-Stop:   $network $remote_fs $syslog
 # Default-Start:   2 3 4 5
 # Default-Stop:    0 1 6
-# Short-Description: Start baby-monitor daemon
+# Short-Description: Start babymonitor daemon
 ### END INIT INFO
 
 
@@ -15,17 +15,17 @@ PATH="/usr/local/bin:/usr/bin:${PATH}"
 # Carry out specific functions when asked to by the system
 case "$1" in
   start)
-    echo "Starting baby-monitor"
-    cd "/opt/baby-monitor"
+    echo "Starting babymonitor"
+    cd "/opt/babymonitor"
     su babymonitor -s /bin/bash -c "npm start"
     ;;
   stop)
-    echo "Stopping baby-monitor"
-    cd "/opt/baby-monitor"
+    echo "Stopping babymonitor"
+    cd "/opt/babymonitor"
     su babymonitor -s /bin/bash -c "npm stop"
     ;;
   *)
-    echo "Usage: /etc/init.d/baby-monitor {start|stop}"
+    echo "Usage: /etc/init.d/babymonitor {start|stop}"
     exit 1
     ;;
 esac

@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # Create the needed user. It needs to be 'babymonitor'
-useradd -r -d /opt/baby-monitor -s /bin/false -G video babymonitor
+useradd -r -d /opt/babymonitor -s /bin/false -G video babymonitor
 
 # Change all files to be owned by this user
-chown -R babymonitor /opt/baby-monitor
-chown -R root:root /etc/init.d/baby-monitor
+chown -R babymonitor /opt/babymonitor
+chown -R root:root /etc/init.d/babymonitor
 
 # Set the appropriate init scripts
-update-rc.d -f baby-monitor defaults
+update-rc.d -f babymonitor defaults
 
 # Install app dependencies
-cd /opt/baby-monitor
+cd /opt/babymonitor
 su babymonitor -s /bin/bash -c "npm install --production"
 
 # Start the services!
-service baby-monitor start
+service babymonitor start
