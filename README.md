@@ -36,6 +36,20 @@ To run the tests:
 
 You can do development on or off the pi. Being on the pi allows you to develop every aspect of the babymonitor. Doing development on another machine means you cannot directly interact with the camera module. But fear not! The camera module can be stubbed out. Read on for instructions.
 
+### Development away from a Raspberry Pi
+
+You'll need [Vagrant](https://www.vagrantup.com/) working. Then do the following:
+
+    git clone https://github.com/baby-tech/babymonitor.git
+    cd babymonitor/infra/vagrant
+    vagrant up
+    vagrant ssh
+    cd workspace
+    npm install
+    npm start
+
+At this point you'll have a the application running on `http://localhost:8888/` serving a dummy image. Woohoo!
+
 ## Thanks
 
 http://www.x-com.se/labs/rasberry-pi-image-streamer/
