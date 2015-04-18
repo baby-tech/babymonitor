@@ -4,20 +4,14 @@
   <title>babymonitor</title>
 
   <style>
-    body {
+    html, body {
       background-color: black;
+      height: 100%;
+      margin: 0px;
     }
 
-    img {
-      max-width: 100%;
-      max-height: 100%;
-      bottom: 0;
-      left: 0;
-      margin: auto;
-      overflow: auto;
-      position: absolute;
-      right: 0;
-      top: 0;
+    #stream {
+      height: 100%;
     }
   </style>
 
@@ -25,14 +19,13 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
   var socket = io();
+
   socket.on('liveStream', function(url) {
-    $('#stream').attr('src', url);
-    $('.start').hide();
+    $('#stream').attr('style', 'background: url(' + url + ') no-repeat center center fixed; background-size: contain;');
   });
 
   function startStream() {
     socket.emit('start-stream');
-    $('.start').hide();
   }
 
   $(document).ready(startStream);
@@ -40,7 +33,7 @@
 </head>
 
 <body>
-  <img src="" id="stream" />
+  <div id="stream" />
 </body>
 
 </html>
