@@ -5,12 +5,11 @@ module.exports = {
     var app = express();
     var http = require('http').Server(app);
     var io = require('socket.io')(http);
-    var fs = require('fs');
     var path = require('path');
 
-    var proc;
+    var camera = require('./camera');
 
-    var imagePath = path.resolve(__dirname + '/../images/camera.jpg');
+    var proc;
 
     app.use('/', express.static(path.join(__dirname, '..', 'images')));
     app.get('/', function(req, res) {
@@ -27,9 +26,9 @@ module.exports = {
         delete sockets[socket.id];
 
         if (Object.keys(sockets).length === 0) {
-          app.set('watchingFile', false);
+          app.set('cameraRunning', false);
           if (proc) { proc.kill(); }
-          fs.unwatchFile(imagePath);
+          camera.stop();
         }
       });
 
@@ -43,15 +42,17 @@ module.exports = {
     });
 
     function startStreaming(io) {
-      if (app.get('watchingFile')) {
-        io.sockets.emit('liveStream', 'camera.jpg?_t=' + (Math.random() * 100000));
+      if (app.get('cameraRunning')) {
         return;
       }
-      console.log('Watching for changes...');
-      app.set('watchingFile', true);
+      console.log('Camera running...');
+      app.set('cameraRunning', true);
 
-      fs.watchFile(imagePath, function() {
-        io.sockets.emit('liveStream', 'camera.jpg?_t=' + (Math.random() * 100000));
+      camera.start(function(imageData) {
+        var imageEncoded = new Buffer(imageData, 'binary').toString('base64');
+        var imageUrl = 'data:image/jpeg;base64,' + imageEncoded;
+        
+        io.sockets.emit('liveStream', imageUrl);
       });
     }
   }

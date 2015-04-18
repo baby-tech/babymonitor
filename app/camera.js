@@ -1,35 +1,50 @@
 var constants = require('./constants');
-var ts = require('./timestamp');
-var temp = require('temp');
 var exec = require('child_process').exec;
+var running = false;
 
 module.exports = {
-  run: function () {
+  stop: function () {
+    running = false;
+  },
+  start: function (handleImageData) {
     'use strict';
 
-    var intermediatePath = temp.path({suffix: '.jpg'});
-
     function takePhoto() {
-      exec([
+      var raspistillCommand = [
           'raspistill',
+          '--encoding', 'jpg',
           '--width', constants.WIDTH,
           '--height', constants.HEIGHT,
-          '--output', intermediatePath,
           '--quality', '50',
-          '--rotation', '180'
-        ].join(' '), handlePhoto);
+          '--rotation', '180',
+          '-o', '-'
+        ].join(' ');
+
+      var imagemagickCommand = [
+          'convert', '-',
+          '-gravity', 'south',
+          '-fill', 'white',
+          '-annotate', '0', '\'' +  new Date().toString() + '\'',
+          '-'
+        ].join(' ');
+      
+      var command = [raspistillCommand, '|', imagemagickCommand].join(' ');
+
+      exec(command, {encoding: 'binary', maxBuffer: 1024 * 5000}, handlePhoto);
     }
 
-    function handlePhoto(err) {
+    function handlePhoto(err, stdout) {
       if (err) { throw err; }
-      else { ts.add(intermediatePath, constants.IMAGE_PATH, new Date().toString(), handleStamp); }
+      else {
+        handleImageData(stdout);
+        if (running) {
+          setTimeout(takePhoto, constants.INTERVAL);
+        }
+      }
     }
-
-    function handleStamp(err) {
-      if (err) { throw err; }
-      else { setTimeout(takePhoto, constants.INTERVAL); }
-    }
-
+    
+    running = true;
     takePhoto();
   }
 };
+

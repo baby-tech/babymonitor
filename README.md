@@ -36,14 +36,6 @@ To run the tests:
 
 You can do development on or off the pi. Being on the pi allows you to develop every aspect of the babymonitor. Doing development on another machine means you cannot directly interact with the camera module. But fear not! The camera module can be stubbed out. Read on for instructions.
 
-### Doing dev away from a Raspberry Pi
-
-Make sure you have [ImageMagick](http://www.imagemagick.org/) installed and run:
-
-    node stubs/app.js
-
-This will run the application using a dummy camera. All other aspects of the monitor can now be worked on!
-
 ## Thanks
 
 http://www.x-com.se/labs/rasberry-pi-image-streamer/
