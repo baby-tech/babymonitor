@@ -1,13 +1,17 @@
 var constants = require('../app/constants');
+var timestamp = require('../app/timestamp');
 
 module.exports = {
   run: function () {
     'use strict';
     var im = require('imagemagick');
     var path = require('path');
-    var fs = require('fs');
+    var mv = require('mv');
+    var temp = require('temp');
+
     var input = path.resolve(__dirname + '/image.jpg');
-    var intermediate = path.resolve(__dirname + '/_image.jpg');
+    var intermediate = temp.path({suffix: '.jpg'});
+    var anotherIntermediate = temp.path({suffix: '.jpg'});
     var output = constants.IMAGE_PATH;
 
     function createImage() {
@@ -15,20 +19,29 @@ module.exports = {
         input,
         '-resize', constants.WIDTH + 'x' + constants.HEIGHT + '^',
         '-crop', constants.WIDTH + 'x' + constants.HEIGHT + '!+0+0',
-        '-gravity', 'center',
-        '-fill', 'white',
-        '-annotate', '0', new Date(),
         intermediate
       ], handleImageCreation);
     }
 
     function handleImageCreation(err) {
       if (err) { throw err; }
+      else {
+        timestamp.add(
+          intermediate,
+          anotherIntermediate,
+          new Date().toString(),
+          handleAddStamp
+        );
+      }
+    }
+
+    function handleAddStamp(err) {
+      if (err) { throw err; }
       else { moveImage(); }
     }
 
     function moveImage() {
-      fs.rename(intermediate, output, handleImageMove);
+      mv(anotherIntermediate, output, handleImageMove);
     }
 
     function handleImageMove(err) {

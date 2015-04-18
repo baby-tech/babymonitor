@@ -5,7 +5,10 @@ VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = 'puphpet/debian75-x64'
-  config.vm.synced_folder '../../', '/vagrant'
+
+  config.ssh.forward_agent = true
+  config.vm.synced_folder '../../', '/home/vagrant/workspace'
+  config.vm.network 'forwarded_port', guest: 8888, host: 8888
 
   config.vm.provision 'shell', inline: 'curl -sL https://deb.nodesource.com/setup | bash -'
   config.vm.provision 'shell', inline: 'apt-get install -y nodejs'

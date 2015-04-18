@@ -4,6 +4,6 @@ Section: base
 Priority: optional
 Architecture: all
 Installed-Size: SIZE
-Depends:
+Depends: imagemagick
 Maintainer: Adam Scott and Kelvin Nicholson
 Description: A simple node-based baby monitor that runs on a Raspberry Pi.

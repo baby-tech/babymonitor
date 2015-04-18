@@ -7,7 +7,7 @@ service babymonitor stop || true
 userdel babymonitor
 
 # Remove installed app dependencies
-rm -rf /opt/babymonitor/images/*
+rm -rf /opt/babymonitor/images
 rm -rf /opt/babymonitor/node_modules
 rm -rf /opt/babymonitor/.forever
 rm -rf /opt/babymonitor/.node-gyp

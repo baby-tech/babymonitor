@@ -1,28 +1,33 @@
 var constants = require('./constants');
+var ts = require('./timestamp');
+var temp = require('temp');
 var exec = require('child_process').exec;
 
 module.exports = {
   run: function () {
     'use strict';
 
-    var command = [
-      'raspistill',
-      '--width', constants.WIDTH,
-      '--height', constants.HEIGHT,
-      '--output', constants.IMAGE_PATH,
-      '--quality', '50',
-      '--rotation', '180'
-    ].join(' ');
-
-    function handleExit(err) {
-      if (err) {
-        throw err;
-      }
-      setTimeout(takePhoto, constants.INTERVAL);
-    }
+    var intermediatePath = temp.path({suffix: '.jpg'});
 
     function takePhoto() {
-      exec(command, handleExit);
+      exec([
+          'raspistill',
+          '--width', constants.WIDTH,
+          '--height', constants.HEIGHT,
+          '--output', intermediatePath,
+          '--quality', '50',
+          '--rotation', '180'
+        ].join(' '), handlePhoto);
+    }
+
+    function handlePhoto(err) {
+      if (err) { throw err; }
+      else { ts.add(intermediatePath, constants.IMAGE_PATH, new Date().toString(), handleStamp); }
+    }
+
+    function handleStamp(err) {
+      if (err) { throw err; }
+      else { setTimeout(takePhoto, constants.INTERVAL); }
     }
 
     takePhoto();
