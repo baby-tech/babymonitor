@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   add: function (inputPath, outputPath, text, callback) {
     require('imagemagick').convert([
