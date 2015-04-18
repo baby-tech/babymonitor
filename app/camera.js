@@ -5,6 +5,7 @@ var running = false;
 module.exports = {
   stop: function () {
     'use strict';
+
     running = false;
   },
   start: function (handleImageData) {
