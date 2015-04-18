@@ -4,6 +4,7 @@ var running = false;
 
 module.exports = {
   stop: function () {
+    'use strict';
     running = false;
   },
   start: function (handleImageData) {
@@ -27,7 +28,7 @@ module.exports = {
           '-annotate', '0', '\'' +  new Date().toString() + '\'',
           '-'
         ].join(' ');
-      
+
       var command = [raspistillCommand, '|', imagemagickCommand].join(' ');
 
       exec(command, {encoding: 'binary', maxBuffer: 1024 * 5000}, handlePhoto);
@@ -42,9 +43,8 @@ module.exports = {
         }
       }
     }
-    
+
     running = true;
     takePhoto();
   }
 };
-
