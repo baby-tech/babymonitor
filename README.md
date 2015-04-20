@@ -21,8 +21,9 @@ Then connect to your pi using a browser on port `8888`. You should see images co
 
 ## Building (unfinished)
 
-To build a .deb file, in debinstall:
+To build a deb file:
 
+    cd debbuild
     ./redeb.sh
 
 This will output a suitable deb in debinstall.
