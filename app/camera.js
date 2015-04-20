@@ -20,7 +20,7 @@ module.exports = {
           '--height', constants.HEIGHT,
           '--quality', '50',
           '--rotation', '180',
-          '--annotate', '\'' +  new Date().toString() + '\'',
+          '--annotate', '"' +  new Date().toString() + '"',
           '-o', '-'
         ].join(' ');
 
