@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/usr/bin/env bash
 DIR="$(dirname "$(readlink -f "$0")")"
-cat $DIR/../assets/image.jpg
+convert $DIR/../assets/image.jpg -gravity north -fill white -annotate 0 "`date`" -

@@ -12,25 +12,17 @@ module.exports = {
     'use strict';
 
     function takePhoto() {
-      var raspistillCommand = [
+      var command = [
           'raspistill',
+          '--timeout', constants.MAX_EXPOSURE_TIME,
           '--encoding', 'jpg',
           '--width', constants.WIDTH,
           '--height', constants.HEIGHT,
           '--quality', '50',
           '--rotation', '180',
+          '--annotate', '\'' +  new Date().toString() + '\'',
           '-o', '-'
         ].join(' ');
-
-      var imagemagickCommand = [
-          'convert', '-',
-          '-gravity', 'south',
-          '-fill', 'white',
-          '-annotate', '0', '\'' +  new Date().toString() + '\'',
-          '-'
-        ].join(' ');
-
-      var command = [raspistillCommand, '|', imagemagickCommand].join(' ');
 
       exec(command, {encoding: 'binary', maxBuffer: 1024 * 5000}, handlePhoto);
     }
