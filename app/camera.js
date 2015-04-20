@@ -1,5 +1,6 @@
 var constants = require('./constants');
 var exec = require('child_process').exec;
+var moment = require('moment');
 var running = false;
 
 module.exports = {
@@ -20,7 +21,9 @@ module.exports = {
           '--height', constants.HEIGHT,
           '--quality', '50',
           '--rotation', '180',
-          '--annotate', '"' +  new Date().toString() + '"',
+          // Text must start with a non-digit character.
+          // Raspistill interprets a start digit as a bitmask for flags.
+          '--annotate', '"Time: ' +  moment().format('YYYY-MM-DD HH:mm:ss') + '"',
           '-o', '-'
         ].join(' ');
 
