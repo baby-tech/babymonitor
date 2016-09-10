@@ -1,6 +1,6 @@
-node_modules
-images/*.jpg
-stubs/_*.jpg
 .DS_Store
 .vagrant
 *.deb
+/vendor
+/bin
+/bindata.go

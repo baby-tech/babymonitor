@@ -15,25 +15,23 @@
     }
   </style>
 
-  <script src="http://code.jquery.com/jquery.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-  var socket = io();
 
-  socket.on('liveStream', function(url) {
-    $('#stream').attr('style', 'background: url(' + url + ') no-repeat center center fixed; background-size: contain;');
-  });
-
-  function startStream() {
-    socket.emit('start-stream');
-  }
-
-  $(document).ready(startStream);
-  </script>
 </head>
 
 <body>
   <div id="stream" />
+
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script>
+  function connect() {
+    var socket = new WebSocket("ws://" + location.host + "/listen");
+    socket.onmessage = function(event) {
+      $('#stream').attr('style', 'background: url(' + event.data + ') no-repeat center center fixed; background-size: contain;');
+    };
+  }
+
+  $(document).ready(connect);
+  </script>
 </body>
 
 </html>

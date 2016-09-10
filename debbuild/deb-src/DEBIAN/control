@@ -1,9 +1,9 @@
 Package: babymonitor
-Version: 0.1
+Version: 0.2
 Section: base
 Priority: optional
 Architecture: all
 Installed-Size: SIZE
-Depends:
+Depends: systemd
 Maintainer: Adam Scott and Kelvin Nicholson
 Description: A simple node-based baby monitor that runs on a Raspberry Pi.
