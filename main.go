@@ -1,21 +1,10 @@
 package main
 
 import (
-	"encoding/base64"
-	"fmt"
 	"net/http"
-	"os"
-	"os/exec"
-	"strconv"
-	"time"
 
 	"github.com/gorilla/websocket"
 )
-
-const WIDTH = 640
-const HEIGHT = 480
-const INTERVAL = 2
-const MAX_EXPOSURE_TIME = 500
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	data, err := Asset("views/index.html")
@@ -56,14 +45,18 @@ func listenHandler(newListener chan *Listener, listenerShutdown chan ListenerId)
 func main() {
 	newListener := make(chan *Listener)
 	listenerShutdown := make(chan ListenerId)
-	newData := make(chan string)
 
 	go func() {
-		listeners := make([]*Listener, 0)
+		var camera *Camera = nil
+		images := make(chan string)
+		listeners := []*Listener{}
 		for {
 			select {
 			case listener := <-newListener:
 				listeners = append(listeners, listener)
+				if camera == nil {
+					camera = NewCamera(images)
+				}
 			case id := <-listenerShutdown:
 				i := -1
 				for x, l := range listeners {
@@ -75,35 +68,14 @@ func main() {
 				if i >= 0 {
 					listeners = append(listeners[:i], listeners[i+1:]...)
 				}
-			case data := <-newData:
-				for _, listener := range listeners {
-					listener.Receive(data)
+				if len(listeners) == 0 && camera != nil {
+					camera.Stop()
+					camera = nil
 				}
-			}
-		}
-	}()
-
-	go func() {
-		ticker := time.NewTicker(INTERVAL * time.Second)
-		for {
-			<-ticker.C
-			out, err := exec.Command("raspistill",
-				"--timeout", strconv.Itoa(MAX_EXPOSURE_TIME),
-				"--encoding", "jpg",
-				"--width", strconv.Itoa(WIDTH),
-				"--height", strconv.Itoa(HEIGHT),
-				"--quality", "50",
-				// Text must start with a non-digit character.
-				// Raspistill interprets a start digit as a bitmask for flags.
-				"--annotate", time.Now().Format("Time: 20060102150405"),
-				"-o",
-				"-",
-			).Output()
-			if err != nil {
-				fmt.Fprintf(os.Stderr, err.Error())
-			} else {
-				encodedData := base64.StdEncoding.EncodeToString([]byte(out))
-				newData <- fmt.Sprintf("data:image/jpeg;base64,%s", encodedData)
+			case image := <-images:
+				for _, listener := range listeners {
+					listener.Receive(image)
+				}
 			}
 		}
 	}()

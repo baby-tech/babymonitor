@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/rand"
 	"encoding/hex"
+	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -28,7 +29,13 @@ func NewListener(conn *websocket.Conn, shutdown chan ListenerId) (*Listener, err
 		for {
 			select {
 			case d := <-data:
-				if err = conn.WriteMessage(websocket.TextMessage, []byte(d)); err != nil {
+				err = conn.SetWriteDeadline(time.Now().Add(5 * time.Second))
+				if err != nil {
+					shutdown <- id
+					return
+				}
+				err = conn.WriteMessage(websocket.TextMessage, []byte(d))
+				if err != nil {
 					shutdown <- id
 					return
 				}
