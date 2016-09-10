@@ -1,14 +1,4 @@
 #!/bin/bash
-
-# Stop the appserver:
-service babymonitor stop || true
-
-#Remove the user
+systemctl stop babymonitor.service || true
 userdel babymonitor
-
-# Remove installed app dependencies
-rm -rf /opt/babymonitor/images
-rm -rf /opt/babymonitor/node_modules
-rm -rf /opt/babymonitor/.forever
-rm -rf /opt/babymonitor/.node-gyp
-rm -rf /opt/babymonitor/.npm
+rm -rf /opt/babymonitor

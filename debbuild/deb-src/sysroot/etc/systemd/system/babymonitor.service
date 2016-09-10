@@ -1,0 +1,10 @@
+[Unit]
+Description=babymonitor
+
+[Service]
+User=babymonitor
+TimeoutStartSec=0
+ExecStart=/opt/babymonitor/babymonitor
+
+[Install]
+WantedBy=multi-user.target

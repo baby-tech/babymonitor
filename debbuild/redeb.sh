@@ -11,20 +11,10 @@ SYSROOT=${SRC}/sysroot
 APPROOT=${SYSROOT}/opt/babymonitor
 DEBIAN=${SRC}/DEBIAN
 
-
 cp -r deb-src/* ${SRC}/
 mkdir -p ${APPROOT}
 
-cp -r ../app ${APPROOT}/
-cp -r ../views ${APPROOT}/
-
-cp ../app.js ${APPROOT}/
-cp ../npm-shrinkwrap.json ${APPROOT}/
-cp ../package.json ${APPROOT}/
-cp ../README.md ${APPROOT}/
-cp ../LICENSE ${APPROOT}/
-
-mkdir ${APPROOT}/images
+cp ../bin/babymonitor-arm ${APPROOT}/babymonitor
 
 find ${SRC}/ -type d -exec chmod 0755 {} \;
 find ${SRC}/ -type f -exec chmod go-w {} \;

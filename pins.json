@@ -1,0 +1,14 @@
+{
+	"./vendor/github.com/gorilla/websocket": {
+		"vcs": "git",
+		"url": "https://github.com/gorilla/websocket.git",
+		"ref": "a69d25be2fe2923a97c2af6849b2f52426f68fc0",
+		"dir": "/"
+	},
+	"./vendor/github.com/jteeuwen/go-bindata": {
+		"vcs": "git",
+		"url": "https://github.com/jteeuwen/go-bindata.git",
+		"ref": "a0ff2567cfb70903282db057e799fd826784d41d",
+		"dir": "/"
+	}
+}
