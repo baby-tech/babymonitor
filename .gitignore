@@ -4,3 +4,4 @@
 /vendor
 /bin
 /bindata.go
+.deps
