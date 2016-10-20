@@ -108,5 +108,10 @@ func main() {
 
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/listen", listenHandler(newListener, listenerShutdown))
-	http.ListenAndServe(fmt.Sprintf("%s:%d", config.Host, config.Port), nil)
+	bind := fmt.Sprintf("%s:%d", config.Host, config.Port)
+	err = http.ListenAndServe(bind, nil)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Cannot bind to %s: [%s]\n", bind, err)
+		os.Exit(3)
+	}
 }
