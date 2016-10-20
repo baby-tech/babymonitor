@@ -1,26 +1,37 @@
+DEB_SOURCES = $(shell find debbuild/deb-src -type f)
+
 all: build package
 
 clean:
-	rm -rf bin vendor debbuild/*.deb
+	rm -rf .deps bin vendor debbuild/*.deb
 
-build: bin vendor bindata.go
+build: bin/babymonitor bin/config.json
+
+package: debbuild/babymonitor-1.deb
+
+debbuild/babymonitor-1.deb: bin/babymonitor-arm debbuild/redeb.sh $(DEB_SOURCES)
+	cd debbuild && ./redeb.sh
+
+bin/babymonitor: main.go camera.go listener.go bindata.go
 	go build -o bin/babymonitor
+
+bin/babymonitor-arm: main.go camera.go listener.go bindata.go
+	env GOOS=linux GOARCH=arm go build -o bin/babymonitor-arm
+
+bin/config.json: bin
+	cp example/config.json bin/config.json
 
 bin:
 	mkdir bin
 
-vendor: pins.json
+.deps: pins.json
 	courier -reproduce
-
-pins.json: deps.json
-	courier
+	touch .deps
 
 bindata.go: bin/go-bindata views/index.html
 	./bin/go-bindata views/
 
-bin/go-bindata: vendor
+bin/go-bindata: .deps
 	cd ./vendor/github.com/jteeuwen/go-bindata/go-bindata && go build -o ../../../../../bin/go-bindata
 
-package: bin vendor bindata.go
-	env GOOS=linux GOARCH=arm go build -o bin/babymonitor-arm
-	cd debbuild && ./redeb.sh
+

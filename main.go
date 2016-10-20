@@ -1,10 +1,20 @@
 package main
 
 import (
+	"encoding/json"
+	"flag"
+	"fmt"
+	"io/ioutil"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/websocket"
 )
+
+type Config struct {
+	Host string
+	Port uint16
+}
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	data, err := Asset("views/index.html")
@@ -43,6 +53,22 @@ func listenHandler(newListener chan *Listener, listenerShutdown chan ListenerId)
 }
 
 func main() {
+	configPath := flag.String("config", "./config.json", "path to config file")
+	flag.Parse()
+
+	contents, err := ioutil.ReadFile(*configPath)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Cannot read %s: [%s]\n", *configPath, err)
+		os.Exit(1)
+	}
+
+	var config Config
+	err = json.Unmarshal(contents, &config)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Cannot deserialise %s: [%s]\n", *configPath, err)
+		os.Exit(2)
+	}
+
 	newListener := make(chan *Listener)
 	listenerShutdown := make(chan ListenerId)
 
@@ -82,5 +108,10 @@ func main() {
 
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/listen", listenHandler(newListener, listenerShutdown))
-	http.ListenAndServe(":8888", nil)
+	bind := fmt.Sprintf("%s:%d", config.Host, config.Port)
+	err = http.ListenAndServe(bind, nil)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Cannot bind to %s: [%s]\n", bind, err)
+		os.Exit(3)
+	}
 }
